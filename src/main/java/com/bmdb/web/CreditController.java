@@ -11,6 +11,7 @@ import com.bmdb.business.Credit;
 import com.bmdb.business.JsonResponse;
 import com.bmdb.db.CreditRepository;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/credits")
 public class CreditController {
@@ -55,6 +56,30 @@ public class CreditController {
 			}
 			return jr;
 		}
+		
+	@GetMapping("/by-actor-id/{id}")
+	public JsonResponse listMovieByActorId(@PathVariable int id) {
+		JsonResponse jr = null;
+		List<Credit> credits = creditRepo.findAllByActorId(id);
+		if(credits.size() == 0 ) {
+			jr = JsonResponse.getErrorInstance("No credits found for this actor: "+id+".");
+		} else {
+			jr = JsonResponse.getInstance(credits);
+		}
+		return jr;
+	}
+	
+	@GetMapping("/by-movie-id/{id}")
+	public JsonResponse listActorsByMovieId(@PathVariable int id) {
+		JsonResponse jr = null;
+		List<Credit> credits = creditRepo.findAllByMovieId(id);
+		if(credits.size() == 0) {
+			jr = JsonResponse.getErrorInstance("No credits found for this movie: "+id+".");
+		} else {
+			jr = JsonResponse.getInstance(credits);
+		}
+		return jr;
+	}
 
 	@GetMapping("/{id}")
 	public JsonResponse get(@PathVariable int id) {

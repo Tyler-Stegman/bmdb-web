@@ -11,6 +11,7 @@ import com.bmdb.business.JsonResponse;
 import com.bmdb.business.Movie;
 import com.bmdb.db.MovieRepository;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/movies")
 public class MovieController {
